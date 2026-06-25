@@ -15,7 +15,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v6
         with:
-          images: mr0grog/test-release-notes
+          images: ghcr.io/mr0grog/test-release-notes
           tags: |
             type=semver,pattern={{version}}
 
