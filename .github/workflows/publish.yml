@@ -13,6 +13,12 @@ jobs:
       packages: write
       attestations: write
       id-token: write
+    
+    strategy:
+      matrix:
+        registry:
+          - ghcr.io
+          - docker.io
 
     steps:
       - name: Check out the repo
@@ -22,7 +28,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v6
         with:
-          images: ghcr.io/mr0grog/test-release-notes
+          images: ${{ matrix.registry }}/mr0grog/test-release-notes
           tags: |
             type=semver,pattern={{version}}
 
@@ -34,9 +40,9 @@ jobs:
         with:
           # username: ${{ secrets.DOCKER_USERNAME }}
           # password: ${{ secrets.DOCKER_PASSWORD }}
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ${{ matrix.registry }}
+          username: ${{ matrix.registry == 'ghcr.io' && github.actor || secrets.DOCKER_USERNAME }}
+          password: ${{ matrix.registry == 'ghcr.io' && secrets.GITHUB_TOKEN || secrets.DOCKER_PASSWORD }}
 
       - name: Build and push
         id: docker_build
