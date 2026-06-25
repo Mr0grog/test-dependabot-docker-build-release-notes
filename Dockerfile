@@ -1,4 +1,4 @@
 FROM scratch
 
 LABEL org.opencontainers.image.source="https://github.com/Mr0grog/test-dependabot-docker-build-release-notes"
-LABEL org.opencontainers.image.description="This is a test of how Dependabot finds release notes for a Docker image, version 6, now on multiple registries."
+LABEL org.opencontainers.image.description="This is a test of how Dependabot finds release notes for a Docker image, version 7 (multiple registries take 2)."
